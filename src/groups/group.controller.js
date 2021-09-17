@@ -30,7 +30,8 @@ class GroupController {
 
   async update(req, res) {
     try {
-      const newGroup = await GroupService.update(req.body);
+      const { id } = req.params;
+      const newGroup = await GroupService.update(id, req.body);
       res.status(200).json(newGroup);
     } catch (e) {
       res.status(500).json(e);
