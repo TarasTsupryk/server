@@ -1,4 +1,4 @@
-import Pool from "../utils/database.js";
+import Pool from "../../utils/database.js";
 
 class TeacherService {
   async getAll() {

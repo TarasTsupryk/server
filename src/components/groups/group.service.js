@@ -1,4 +1,5 @@
-import Pool from "../utils/database.js";
+import Pool from "../../utils/database.js";
+
 class GroupService {
   async getAll() {
     const query = "SELECT * FROM `group` ORDER BY id";
