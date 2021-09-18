@@ -1,7 +1,7 @@
 import Pool from "../utils/database.js";
 class GroupService {
   async getAll() {
-    const query = "SELECT * FROM `group`";
+    const query = "SELECT * FROM `group` ORDER BY id";
     const groups = await Pool.query(query);
     return groups[0];
   }
@@ -13,11 +13,10 @@ class GroupService {
   }
 
   async create(group) {
-    console.log(group);
-    const { name, course, amountOfStudents, idFaculty } = group;
+    const { name, course, amount_of_students, id_faculty } = group;
     const query =
       "INSERT INTO `group` VALUES " +
-      `(id, "${name}", ${course}, ${amountOfStudents}, ${idFaculty})`;
+      `(id, "${name}", ${course}, ${amount_of_students}, ${id_faculty})`;
     const createdGroup = await Pool.query(query);
     return createdGroup;
   }
@@ -27,8 +26,12 @@ class GroupService {
     const query =
       "UPDATE `group` SET " +
       `name = "${name}", course = ${course}, amount_of_students = ${amount_of_students}, id_faculty=${id_faculty}  WHERE id = ${id}`;
-    const newGroup = await Pool.query(query);
-    return newGroup;
+    try {
+      const newGroup = await Pool.query(query);
+      return newGroup;
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   async delete(groupId) {
